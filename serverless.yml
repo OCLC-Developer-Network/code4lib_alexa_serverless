@@ -1,0 +1,19 @@
+service: 
+    name: alexa-worldcat-example
+package:
+  exclude:
+    - config.yml
+    - .gitignore
+    - .git/**
+    - speech_assets/*
+provider:
+ name: aws
+ runtime: nodejs8.10
+ memorySize: 128
+ timeout: 10
+ stage: production
+ region: us-east-1
+
+functions:
+    askWorldCat: 
+        handler: index.handler

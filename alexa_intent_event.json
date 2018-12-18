@@ -1,0 +1,67 @@
+{
+    "version": "1.0",
+    "session": {
+        "new": true,
+        "sessionId": "amzn1.echo-api.session.3e338c2a-1263-496a-8d7d-afa991e4c8ba",
+        "application": {
+            "applicationId": "amzn1.ask.skill.id"
+        },
+        "user": {
+            "userId": "amzn1.ask.account.account"
+        }
+    },
+    "context": {
+        "System": {
+            "application": {
+                "applicationId": "amzn1.ask.skill.id"
+            },
+            "user": {
+                "userId": "amzn1.ask.account.account"
+            },
+            "device": {
+                "deviceId": "amzn1.ask.device.device",
+                "supportedInterfaces": {}
+            },
+            "apiEndpoint": "https://api.amazonalexa.com",
+            "apiAccessToken": "someToken"
+        },
+        "Viewport": {
+            "experiences": [
+                {
+                    "arcMinuteWidth": 246,
+                    "arcMinuteHeight": 144,
+                    "canRotate": false,
+                    "canResize": false
+                }
+            ],
+            "shape": "RECTANGLE",
+            "pixelWidth": 1024,
+            "pixelHeight": 600,
+            "dpi": 160,
+            "currentPixelWidth": 1024,
+            "currentPixelHeight": 600,
+            "touch": [
+                "SINGLE"
+            ]
+        }
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "amzn1.echo-api.request.1d4f6406-a85a-4053-8cc8-e4b09b6cc030",
+        "timestamp": "2018-12-12T19:13:20Z",
+        "dialogState": "string",
+        "locale": "en-US",
+        "intent": {
+            "name": "SearchIntent",
+            "confirmationStatus": "NONE",
+            "slots": {
+                "Search": {
+                    "name": "Search",
+                    "value": "on the road",
+                    "confirmationStatus": "NONE",
+                    "source": "USER"
+                }
+            }
+        }            
+    }
+}
