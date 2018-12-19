@@ -131,7 +131,43 @@ const YesIntentHandler = {
           .withSimpleCard('Ask WorldCat', card_text)
           .getResponse();
       }
-    };	    	    
+    };
+
+const LibrarySearchIntentHandler = {
+	      canHandle(handlerInput) {
+	        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+	          && handlerInput.requestEnvelope.request.intent.name === 'LibrarySearchIntent';
+	      },
+	      async handle(handlerInput) {
+	    	  	let library_search_url = base_url_find_libraries + "location=" + config['zip_code'] + "&libtype=2&wskey=" + config['wskey'] + "&format=json";
+
+	  		var request_config = {
+	  				  headers: {
+	  					  'User-Agent': 'node.js KAC Alexa demo app'
+	  		  }
+	  		};
+	  		// call the WorldCat Search API libraries endpoint
+	  		try {
+	  			let library_response = await axios.get(library_search_url, request_config);		
+	  			let location_data = library_response.data;
+	  	        let closest_library = location_data['library'][0]
+	  	        let closest_library_name = closest_library['institutionName']
+	  	        let closest_library_address = closest_library['streetAddress1'] + closest_library['streetAddress2'] + ", " + closest_library['city'] + ", " + closest_library['state'] + ", " + closest_library['postalCode'] + ", " + closest_library['country']
+	  	        let speech_output = "The closest public library is " + closest_library_name + ".\n\nIt is located at " + closest_library_address;
+	  	        return handlerInput.responseBuilder
+		            .speak(speech_output)
+		            .withSimpleCard('Ask WorldCat', speech_output)
+		            .getResponse();
+	  		} catch (Error) {
+	  				console.log(Error, Error.stack);
+	  			    let speechText = "I'm sorry, application search error."
+	  			    	return handlerInput.responseBuilder
+			  	          .speak(speechText)
+			  	          .withSimpleCard('Ask WorldCat', speechText)
+			  	          .getResponse();
+	  		}
+	      }
+	    };
 	    
 const HelpIntentHandler = {
 	      canHandle(handlerInput) {
@@ -204,6 +240,7 @@ exports.handler = async function (event, context) {
 		      .addRequestHandlers(
 		        LaunchRequestHandler,
 		        SearchIntentHandler,
+		        LibrarySearchIntentHandler,
 		        YesIntentHandler,
 		        HelpIntentHandler,
 		        CancelAndStopIntentHandler,
