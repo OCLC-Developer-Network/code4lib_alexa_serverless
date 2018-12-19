@@ -1,0 +1,108 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "world cat",
+            "intents": [
+                {
+                    "name": "SearchIntent",
+                    "slots": [
+                        {
+                            "name": "Search",
+                            "type": "AMAZON.Book"
+                        }
+                    ],
+                    "samples": [
+                        "Search for {Search}",
+                        "Search for a book called {Search}",
+                        "Where can I check out {Search}",
+                        "Where can I find {Search}",
+                        "Where can I get {Search}",
+                        "Which library has {Search}",
+                        "Which library's got {Search}",
+                        "Who has {Search}",
+                        "Who's got {Search}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "LibrarySearchIntent",
+                    "slots": [],
+                    "samples": [
+                        "Find public libraries near me",
+                        "Find local public libraries near me",
+                        "What is my local public library",
+                        "Find my local public library"
+                    ]
+                },
+                {
+                    "name": "AMAZON.MoreIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateSettingsIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NextIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PageUpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PageDownIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PreviousIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollRightIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollDownIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollLeftIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollUpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StartOverIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}
