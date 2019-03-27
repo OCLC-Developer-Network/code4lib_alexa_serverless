@@ -80,9 +80,13 @@ serverless invoke local --function checkOCLCNumber --path alexa_launch_event.jso
 2. Edit serverless.yml so it includes your key ARN
 
 ```
-service: 
-    name: alexa-worldcat-example
-    awsKmsKeyArn: arn:aws:kms:us-east-1:XXXXXX:key/some-hash
+ region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+       - kms:Decrypt
+      Resource: { "Fn::Join" : ["", ["arn:aws:kms:${self:provider.region}:", { "Ref" : "AWS::AccountId" }, ":key/{key-id}" ] ]  }
+
 ```
 
 3. Deploy the code using serverless
