@@ -6,6 +6,10 @@
         "application": {
             "applicationId": "amzn1.ask.skill.id"
         },
+        "attributes": {
+            "location": 
+                {"postalCode": "77062"}
+        },        
         "user": {
             "userId": "amzn1.ask.account.account"
         }

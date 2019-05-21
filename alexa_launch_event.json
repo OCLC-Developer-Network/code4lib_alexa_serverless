@@ -16,14 +16,23 @@
                 "applicationId": "amzn1.ask.skill.id"
             },
             "user": {
-                "userId": "amzn1.ask.account.account"
+                "userId": "amzn1.ask.account.account",
+                "permissions":{ 
+                    "consentToken":"string",
+                    "scopes":{}
+                }
             },
             "device": {
-                "deviceId": "amzn1.ask.device.device",
-                "supportedInterfaces": {}
+                "deviceId": "amzn1.ask.device.AFVPFQGW3757Q7OHDNV2Z77E2WAJBSRIS3HFYEJ5SAI4COU4LX4Q2J74UX4XRTDQWGZITCFRZKYBWEKEQ7MWYQMHXROVSWEKEO2SNESMAOKUO2J72LBDKIND6N7NW72WRAAEWUZ3QAHOZGKE7X7OCYQXUZIODAE35RMDGDC43FLYWQBFWIMMI",
+                "supportedInterfaces": {
+                    "Display": {
+                        "templateVersion": "1.0",
+                        "markupVersion": "1.0"
+                    }
+                }
             },
             "apiEndpoint": "https://api.amazonalexa.com",
-            "apiAccessToken": "someToken"
+            "apiAccessToken": "eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjE5YmY4OGNmLTY1MDUtNDZlZC04Yzc1LTliZTU1ZDdiZGE2MCIsImV4cCI6MTU1NTk2MDA0MSwiaWF0IjoxNTU1OTU5NzQxLCJuYmYiOjE1NTU5NTk3NDEsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUZWUEZRR1czNzU3UTdPSEROVjJaNzdFMldBSkJTUklTM0hGWUVKNVNBSTRDT1U0TFg0UTJKNzRVWDRYUlREUVdHWklUQ0ZSWktZQldFS0VRN01XWVFNSFhST1ZTV0VLRU8yU05FU01BT0tVTzJKNzJMQkRLSU5ENk43Tlc3MldSQUFFV1VaM1FBSE9aR0tFN1g3T0NZUVhVWklPREFFMzVSTURHREM0M0ZMWVdRQkZXSU1NSSIsInVzZXJJZCI6ImFtem4xLmFzay5hY2NvdW50LkFIR0pSWExGQlpXN1JRUUFOUEFKQkU0M1BCWTRWWU9ZU1FSWkI0M1lGWjRHWDJZQUNWS0g3U0xPSTZOR0haR0M3Mk40TVpBRDJWTFpKTjJWTFVJWjRHR0FDSEpLSkFXWk5JQlNXNDRSQlhIVVZJTVo3QlhZQ0lKV0RSUzI0VlFWMzZIUE9XSUFBTjNMVkJOTFFPT0RMREJJRzMzVEcyREVKWU1EU0k0UUpHQlg1TldDNVUyUVY2Q0EyVFpYWFFVRzVKREZBQlpOVFEzS0MzQSJ9fQ"
         },
         "Viewport": {
             "experiences": [

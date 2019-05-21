@@ -7,8 +7,10 @@
             "applicationId": "amzn1.ask.skill.id"
         },
         "attributes": {
-            "location": 
-                {"postalCode": "77062"}
+            "location": {
+                "lat": "40.103861",
+                "lon": "-83.123937"
+                }
         },
         "user": {
             "userId": "amzn1.ask.account.account"
