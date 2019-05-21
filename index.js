@@ -16,16 +16,16 @@ let base_url_search = "http://www.worldcat.org/webservices/catalog/search/worldc
 let base_url_location = "http://www.worldcat.org/webservices/catalog/content/libraries/"
 let base_url_find_libraries = "http://www.worldcat.org/webservices/catalog/content/libraries?"
 
-async function getLocation(requestEnvelope, serviceClientFactory) {
-  	const { deviceId } = requestEnvelope.context.System.device;
-  	const deviceAddressServiceClient = serviceClientFactory.getDeviceAddressServiceClient();
-  	const address = await deviceAddressServiceClient.getCountryAndPostalCode(deviceId);
-  	
-  	if (isGeoSupported & requestEnvelope.context.Geolocation.coordinate){
+async function getLocation(requestEnvelope, serviceClientFactory, isGeoSupported) {  	
+  	let location = "";
+	if (isGeoSupported && requestEnvelope.context.Geolocation.coordinate){
   		let geocoordinates = requestEnvelope.context.Geolocation.coordinate
-  		let location = {"lat": geocoordinates.latitudeInDegrees, "lon": geocoordinates.longitudeInDegrees};
+  		location = {"lat": geocoordinates.latitudeInDegrees, "lon": geocoordinates.longitudeInDegrees};
   	} else {
-  		let location = {"postalCode": address.postalCode};
+  	  	const { deviceId } = requestEnvelope.context.System.device;
+  	  	const deviceAddressServiceClient = serviceClientFactory.getDeviceAddressServiceClient();
+  	  	const address = await deviceAddressServiceClient.getCountryAndPostalCode(deviceId);
+  		location = {"postalCode": address.postalCode};
   	}
   	return location;
 }	
@@ -36,22 +36,26 @@ const LaunchRequestHandler = {
 	      },
 	      async handle(handlerInput) {
 	    	    const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
-	    		const addressConsent = requestEnvelope.context.System.user.permissions.scopes['read::alexa:device:all:address:country_and_postal_code'];
-	    	    if (!addressConsent || addressConsent == 'DENIED') {
-	    	      return responseBuilder
-	    	        .speak('Please enable Location permissions in the Amazon Alexa app.')
-	    	        .withAskForPermissionsConsentCard(['read::alexa:device:all:address:country_and_postal_code'])
-	    	        .getResponse();
-	    	    }
 	    	    const isGeoSupported = requestEnvelope.context.System.device.supportedInterfaces.Geolocation;
-	    	    const geolocationConsent = requestEnvelope.context.System.user.permissions.scopes['alexa::devices:all:geolocation:read.status']
-	    	    if (isGeoSupported & geolocationConsent == 'DENIED') {
-	    		      return responseBuilder
-	    		        .speak('Please enable Geolocation permissions in the Amazon Alexa app.')
-	    		        .withAskForPermissionsConsentCard(['alexa::devices:all:geolocation:read'])
-	    		        .getResponse();
-	    		}
-	    	    let location = await getLocation(requestEnvelope, serviceClientFactory, responseBuilder);
+	    	    if (isGeoSupported) {	    	    
+		    	    const geolocationConsent = requestEnvelope.context.System.user.permissions.scopes['alexa::devices:all:geolocation:read.status']
+		    	    if (isGeoSupported & geolocationConsent == 'DENIED') {
+		    		      return responseBuilder
+		    		        .speak('Please enable Geolocation permissions in the Amazon Alexa app.')
+		    		        .withAskForPermissionsConsentCard(['alexa::devices:all:geolocation:read'])
+		    		        .getResponse();
+		    		}
+	    	    } else {
+	    	        const addressConsent = requestEnvelope.context.System.user.permissions.scopes['read::alexa:device:all:address:country_and_postal_code'];
+		    	    if (!addressConsent || addressConsent == 'DENIED') {
+		    	      return responseBuilder
+		    	        .speak('Please enable Location permissions in the Amazon Alexa app.')
+		    	        .withAskForPermissionsConsentCard(['read::alexa:device:all:address:country_and_postal_code'])
+		    	        .getResponse();
+		    	    }
+	    	    	
+	    	    }
+	    	    let location = await getLocation(requestEnvelope, serviceClientFactory, isGeoSupported);
 	    	    let session_attributes = {
 	    	  	          "location" : location
 	    	    }
@@ -116,7 +120,7 @@ const SearchIntentHandler = {
 	        let closest_library_address = closest_library['streetAddress1'] + " " + closest_library['streetAddress2'] + ", " + closest_library['city'] + ", " + closest_library['state'] + ", " + closest_library['postalCode'] + ", " + closest_library['country']
 	        
 	        // build speech output and store session attributes
-	        let speechText = "The closest library where you can find " + title + " by " + author + " is " + closest_library_name;
+	        let speechText = "The closest library where you can find " + title + " by " + author + " is " + closest_library_name + '.';
 	        let reprompt = "Do you need the library's address?"; 
 	        let session_attributes = {
 	            "title" : title,
@@ -127,7 +131,7 @@ const SearchIntentHandler = {
 	        await handlerInput.attributesManager.setSessionAttributes(session_attributes);
 	        // return response
 	        return handlerInput.responseBuilder
-  	          .speak(speechText + reprompt)
+  	          .speak(speechText + ' ' + reprompt)
   	          .reprompt(reprompt)
   	          .withSimpleCard('Ask WorldCat', speechText + reprompt)
   	          .getResponse();
